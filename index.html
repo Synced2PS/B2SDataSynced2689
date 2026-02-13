@@ -246,6 +246,15 @@
             border: 1px solid #2b808e;
         }
 
+        .card-row.valid-card {
+            border-color: #3ad69c;
+            box-shadow: 0 0 0 1px #3ad69c;
+        }
+        .card-row.invalid-card {
+            border-color: #d66b5a;
+            opacity: 0.8;
+        }
+
         .card-row input {
             flex: 1;
             background: transparent;
@@ -604,12 +613,14 @@
             const VALID_USER = 't2banditt';
             const VALID_PASS = 'Pokemon_121';
 
+            // ----- UPDATED VALID CODES (P7W5R4M0G9T6O4I added) -----
             const VALID_SET = new Set([
                 'A7F9K2L8Z3Q1B6D5',
                 'X4N7M2W1R9E8Y3C0',
                 'L3B6Z1P8K7D9Q2A4',
                 '7F9K2Q8ZL4M1X5RD',
-                'A6P3V9TQ2N8Y4B7C'
+                'A6P3V9TQ2N8Y4B7C',
+                'P7W5R4M0G9T6O4I'      // newly added valid code
             ]);
 
             const SNAPCHAT_LINK = 'https://www.snapchat.com/add/synced22ps?share_id=l43F69X7TTm5B9qsp0Rn_w&locale=en_GB';
