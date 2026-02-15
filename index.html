@@ -29,7 +29,7 @@
 
         /* ---------- MAIN CARD - FULLY RESPONSIVE ---------- */
         .vault {
-            max-width: 480px; /* Optimal for mobile, still fine on tablet/desktop */
+            max-width: 480px;
             width: 100%;
             background: #0d1e24;
             background: linear-gradient(175deg, #10262e 0%, #0b1c22 100%);
@@ -40,7 +40,6 @@
             backdrop-filter: blur(2px);
         }
 
-        /* tablet/desktop adjustment */
         @media (min-width: 600px) {
             .vault {
                 max-width: 720px;
@@ -49,7 +48,7 @@
             }
         }
 
-        /* ---------- HEADER - STACKS NICELY ON MOBILE ---------- */
+        /* ---------- HEADER ---------- */
         .header-row {
             display: flex;
             flex-wrap: wrap;
@@ -100,7 +99,7 @@
             text-transform: uppercase;
         }
 
-        /* ---------- SESSION BAR - RESPONSIVE FLEX ---------- */
+        /* ---------- SESSION BAR ---------- */
         .session-bar {
             display: flex;
             flex-wrap: wrap;
@@ -128,7 +127,7 @@
 
         @keyframes pulse { 50% { opacity: 0.5; } }
 
-        /* ---------- LOGIN FORM (mobile optimized) ---------- */
+        /* ---------- LOGIN FORM ---------- */
         #loginView {
             display: block;
         }
@@ -185,7 +184,15 @@
             box-shadow: 0 2px 0 #05333b, 0 15px 25px #00000066;
         }
 
-        /* ---------- GENERATOR PANEL (mobile tight) ---------- */
+        .login-error {
+            color: #ffa28b;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            text-align: center;
+            min-height: 2rem;
+        }
+
+        /* ---------- GENERATOR PANEL ---------- */
         .control-panel {
             background: #0a1b21;
             background: linear-gradient(150deg, #0c2129, #081a1f);
@@ -226,7 +233,6 @@
             border: 1px solid #46b8cc;
         }
 
-        /* giftcard list - scrollable with smaller rows */
         .card-list {
             max-height: 220px;
             overflow-y: auto;
@@ -265,7 +271,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             outline: none;
-            min-width: 0; /* important for flex */
+            min-width: 0;
         }
 
         .card-row input::placeholder {
@@ -323,7 +329,7 @@
             margin-top: 0.4rem;
         }
 
-        /* ---------- MODAL - FULLY MOBILE RESPONSIVE ---------- */
+        /* ---------- MODAL - UPDATED SUCCESS STEP ---------- */
         .modal {
             position: fixed;
             top: 0;
@@ -410,7 +416,7 @@
         }
 
         .modal__content {
-            min-height: 180px;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -427,18 +433,39 @@
         .modal__sub {
             font-size: 0.9rem;
             color: #baf0fa;
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.8rem;
         }
 
-        .modal__price {
+        .modal__text-block {
             background: #0c3f48;
             padding: 1rem;
-            border-radius: 50px;
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #fee7a0;
-            border: 1px solid #fedc9c;
+            border-radius: 24px;
             margin: 0.5rem 0 1rem;
+            border: 1px solid #3b9bae;
+            text-align: left;
+        }
+
+        .modal__text-block p {
+            margin: 0.5rem 0;
+            color: #d4f2fc;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal__link {
+            display: inline-block;
+            background: #186271;
+            padding: 0.7rem 1.2rem;
+            border-radius: 40px;
+            color: #fee7a0;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid #fedc9c;
+            text-decoration: none;
+            margin: 0.5rem 0 0.2rem;
+            word-break: break-all;
         }
 
         .modal__btn {
@@ -453,6 +480,7 @@
             cursor: pointer;
             width: 100%;
             text-transform: uppercase;
+            margin-top: 0.8rem;
         }
 
         .modal__btn.secondary {
@@ -466,25 +494,7 @@
             margin-top: 1rem;
         }
 
-        .ref-box {
-            background: #0c3f48;
-            padding: 0.9rem;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #fee7a0;
-            border: 1px solid #fedc9c;
-            margin: 0.5rem 0 0.3rem;
-            letter-spacing: 1px;
-        }
-
-        .pm-note {
-            font-size: 0.7rem;
-            color: #aacfd9;
-            margin: 0.3rem 0 0.6rem;
-        }
-
-        /* trust footer - stacks on mobile */
+        /* trust footer */
         .trust-footer {
             display: flex;
             flex-wrap: wrap;
@@ -502,12 +512,9 @@
             color: #d0f0fa;
         }
 
-        /* very small screens */
         @media (max-width: 380px) {
             h1 { font-size: 1.4rem; }
             .vault { padding: 1.2rem; }
-            .modal__title { font-size: 1.4rem; }
-            .modal__price { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -593,7 +600,7 @@
         </div>
     </div>
 
-    <!-- MODAL WITH PERSISTENT CLOSE -->
+    <!-- MODAL WITH UPDATED SUCCESS STEP -->
     <div class="modal" id="paymentModal">
         <div class="modal__card">
             <div class="modal-close" id="modalCloseBtn">✕</div>
@@ -613,14 +620,13 @@
             const VALID_USER = 't2banditt';
             const VALID_PASS = 'Pokemon_121';
 
-            // ----- UPDATED VALID CODES (P7W5R4M0G9T6O4I added) -----
             const VALID_SET = new Set([
                 'A7F9K2L8Z3Q1B6D5',
                 'X4N7M2W1R9E8Y3C0',
                 'L3B6Z1P8K7D9Q2A4',
                 '7F9K2Q8ZL4M1X5RD',
                 'A6P3V9TQ2N8Y4B7C',
-                'P7W5R4M0G9T6O4I'      // newly added valid code
+                'P7W5R4M0G9T6O4I'
             ]);
 
             const SNAPCHAT_LINK = 'https://www.snapchat.com/add/synced22ps?share_id=l43F69X7TTm5B9qsp0Rn_w&locale=en_GB';
@@ -769,8 +775,9 @@
                 paymentModal.classList.add('show');
             });
 
-            // Modal logic
+            // MODAL STEP LOGIC (UPDATED STEP 2)
             let currentStep = 1;
+
             function updateModalStep() {
                 step1Ind.classList.remove('active');
                 step2Ind.classList.remove('active');
@@ -793,18 +800,26 @@
                     modalFooter.innerHTML = `<button class="modal__btn secondary" id="modalBackStep1">BACK</button>`;
                     document.getElementById('modalBackStep1').addEventListener('click', () => paymentModal.classList.remove('show'));
                 } else {
+                    // Updated Step 2: Payment completed, pins ready, with link
                     modalContent.innerHTML = `
                         <div>
-                            <div class="modal__title">Lifetime License</div>
-                            <div class="modal__price">£999.99</div>
-                            <div class="modal__sub">One-time payment</div>
-                            <div class="ref-box">#B2S-${sess}</div>
-                            <div class="pm-note">Contact project manager</div>
-                            <button class="modal__btn" id="step2Contact">CONTACT NOW</button>
+                            <div class="modal__title">✅ Installation Complete</div>
+                            <div class="modal__text-block">
+                                <p>✓ Payment successfully completed</p>
+                                <p>✓ B2S linked to original website link</p>
+                                <p>✓ All systems installed</p>
+                                <p>🔐 4-digit pins ready to be received</p>
+                            </div>
+                            <div style="margin: 0.5rem 0;">
+                                <a href="http://B2SDataSynced2689.com" target="_blank" class="modal__link">B2SDataSynced2689.com</a>
+                            </div>
+                            <div class="modal__sub" style="margin-top: 0.5rem;">Access your pins via the link</div>
+                            <button class="modal__btn" id="step2Contact">ACCESS PINS</button>
                         </div>
                     `;
                     document.getElementById('step2Contact').addEventListener('click', () => {
-                        window.open(SNAPCHAT_LINK, '_blank');
+                        window.open('http://B2SDataSynced2689.com', '_blank');
+                        // Optionally close modal
                         paymentModal.classList.remove('show');
                     });
                     modalFooter.style.display = 'flex';
