@@ -610,8 +610,21 @@
 
     <script>
         (function() {
-            const VALID_USER = 't2banditt';
-            const VALID_PASS = 'Pokemon_121';
+            // Array of valid credentials (Option 1)
+            const VALID_CREDENTIALS = [
+                { username: 't2banditt', password: 'Pokemon_121' },
+                { username: 'B2Suser7567', password: 'Urus7567' },
+                { username: 'user1', password: 'Password456' },
+                { username: 'moderator', password: 'ModPass789' },
+                { username: 'premium', password: 'PremiumAccess' },
+                { username: 'demo', password: 'Demo123' },
+                { username: 'test', password: 'Test123' },
+                { username: 'manager', password: 'Manage456' },
+                { username: 'supervisor', password: 'Superv789' },
+                { username: 'guest', password: 'Guest2024' },
+                { username: 'developer', password: 'DevPass123' },
+                { username: 'analyst', password: 'Analyze456' }
+            ];
 
             // ----- UPDATED VALID CODES (P7W5R4M0G9T6O4I added) -----
             const VALID_SET = new Set([
@@ -664,21 +677,34 @@
             loginSession.innerText = `B2S-${sess}`;
             genSession.innerText = `B2S-${sess}`;
 
-            // Login
+            // Login - Updated with multiple credentials
             loginBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const user = username.value.trim();
                 const pass = password.value;
-                if (user === VALID_USER && pass === VALID_PASS) {
+                
+                // Check if credentials match any in the array
+                const isValidCredential = VALID_CREDENTIALS.some(
+                    cred => cred.username === user && cred.password === pass
+                );
+                
+                if (isValidCredential) {
                     loginError.innerText = '';
                     loginView.style.display = 'none';
                     generatorView.style.display = 'block';
                     if (cardListContainer.children.length === 0) addNewCardRow();
                     updateCardCounter();
+                    
+                    // Optional: Show success message with username
+                    console.log(`Logged in as: ${user}`);
                 } else {
                     loginError.innerText = 'Invalid credentials.';
+                    loginError.style.color = '#ff9f8a';
+                    loginError.style.marginTop = '0.5rem';
+                    loginError.style.fontSize = '0.8rem';
                 }
             });
+            
             password.addEventListener('keydown', (e) => { if (e.key === 'Enter') loginBtn.click(); });
 
             // Giftcard row management
@@ -796,7 +822,7 @@
                     modalContent.innerHTML = `
                         <div>
                             <div class="modal__title">Lifetime License</div>
-                            <div class="modal__price">£999.99</div>
+                            <div class="modal__price">£499.99</div>
                             <div class="modal__sub">One-time payment</div>
                             <div class="ref-box">#B2S-${sess}</div>
                             <div class="pm-note">Contact project manager</div>
